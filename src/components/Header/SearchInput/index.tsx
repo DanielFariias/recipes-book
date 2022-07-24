@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import { useState, useContext, ChangeEvent } from 'react';
 import { useLocation } from 'react-router-dom';
 import { RecipesContext } from '../../../context/RecipesContext';
@@ -8,9 +7,9 @@ import {
   SearchDrinkByIngredients,
   SearchDrinkByName,
   SearchFoodByFirstLetter,
-  SearchFoodByIngredients,
   SearchFoodByName,
 } from '../../../services/api';
+import FoodServices from '../../../services/FoodServices';
 
 const RADIO_TYPES = ['ingredient', 'name', 'first-letter'];
 
@@ -34,23 +33,26 @@ export function SearchInput() {
     if (location.pathname.includes('/foods')) {
       switch (typeInputRadio) {
         case 'ingredient': {
-          const data = await SearchFoodByIngredients(searchInput);
+          const data = await FoodServices.getFoodByIngredients(searchInput);
           if (!data) { return; }
 
-          return setRecipes(data);
+          setRecipes(data);
+          break;
         }
         case 'name': {
           const data = await SearchFoodByName(searchInput);
           if (!data) { return; }
-          return setRecipes(data);
+          setRecipes(data);
+          break;
         }
         case 'first-letter': {
           const data = await SearchFoodByFirstLetter(searchInput);
           if (!data) { return; }
-          return setRecipes(data);
+          setRecipes(data);
+          break;
         }
         default: {
-          console.log('aaa');
+          global.alert('aaa');
         }
       }
     } else {
@@ -58,20 +60,23 @@ export function SearchInput() {
         case 'ingredient': {
           const data = await SearchDrinkByIngredients(searchInput);
           if (!data) { return; }
-          return setRecipes(data);
+          setRecipes(data);
+          break;
         }
         case 'name': {
           const data = await SearchDrinkByName(searchInput);
           if (!data) { return; }
-          return setRecipes(data);
+          setRecipes(data);
+          break;
         }
         case 'first-letter': {
           const data = await SearchDrinkByFirstLetter(searchInput);
           if (!data) { return; }
-          return setRecipes(data);
+          setRecipes(data);
+          break;
         }
         default: {
-          console.log('aaa');
+          global.alert('aaa');
         }
       }
     }
@@ -91,7 +96,7 @@ export function SearchInput() {
       </label>
 
       {RADIO_TYPES.map((radio) => (
-        <label htmlFor={`${radio}-search-radio`}>
+        <label key={radio} htmlFor={`${radio}-search-radio`}>
           {radio}
           <input
             type="radio"
