@@ -83,6 +83,7 @@ export default function Foods() {
                 src={recipe.strMealThumb}
                 alt=""
                 data-testid={`${index}-card-img`}
+                width={200}
               />
               <span data-testid={`${index}-card-name`}>{recipe.strMeal}</span>
             </div>

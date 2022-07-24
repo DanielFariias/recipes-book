@@ -7,7 +7,7 @@ import mealIcon from '../images/mealIcon.svg';
 const styles = {
   position: 'fixed',
   width: '100%',
-  maxWidth: '360px',
+  maxWidth: 428,
   backgroundColor: '#ff0',
   bottom: 0,
   left: 0,

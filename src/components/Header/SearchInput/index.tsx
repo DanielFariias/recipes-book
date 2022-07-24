@@ -29,7 +29,8 @@ export function SearchInput() {
     setTypeInputRadio(event.target.value);
   }
 
-  async function HandleSearchFoods() {
+  async function HandleSearchFoods(event: ChangeEvent<HTMLFormElement>) {
+    event.preventDefault();
     if (location.pathname.includes('/foods')) {
       switch (typeInputRadio) {
         case 'ingredient': {
