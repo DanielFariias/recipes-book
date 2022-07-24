@@ -1,3 +1,5 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
@@ -13,13 +15,13 @@ export default function Profile() {
   const history = useHistory();
   return (
     <div>
-      <Header />
+      <Header title="Profile" />
 
       <p data-testid="profile-email">{user?.email}</p>
 
       <div>
         <button
-          onClick={ () => history.push('/done-recipes') }
+          onClick={() => history.push('/done-recipes')}
           type="button"
           data-testid="profile-done-btn"
         >
@@ -27,17 +29,17 @@ export default function Profile() {
 
         </button>
         <button
-          onClick={ () => history.push('/favorite-recipes') }
+          onClick={() => history.push('/favorite-recipes')}
           type="button"
           data-testid="profile-favorite-btn"
         >
           Favorite Recipes
         </button>
         <button
-          onClick={ () => {
+          onClick={() => {
             localStorage.clear();
             history.push('/');
-          } }
+          }}
           type="button"
           data-testid="profile-logout-btn"
         >

@@ -1,3 +1,6 @@
+/* eslint-disable consistent-return */
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
@@ -47,13 +50,13 @@ export default function Foods() {
 
   return (
     <div>
-      <Header />
+      <Header title="Foods" />
 
       <div>
         <button
           type="button"
           data-testid="All-category-filter"
-          onClick={ () => searchFoodsByCategory('all') }
+          onClick={() => searchFoodsByCategory('all')}
         >
           All
         </button>
@@ -61,10 +64,10 @@ export default function Foods() {
         {
           categories.map((category) => (
             <button
-              key={ category.strCategory }
+              key={category.strCategory}
               type="button"
-              data-testid={ `${category.strCategory}-category-filter` }
-              onClick={ () => searchFoodsByCategory(category.strCategory) }
+              data-testid={`${category.strCategory}-category-filter`}
+              onClick={() => searchFoodsByCategory(category.strCategory)}
             >
               {category.strCategory}
             </button>
@@ -74,14 +77,14 @@ export default function Foods() {
 
       {
         firtsRecipes.map((recipe, index) => (
-          <Link key={ recipe.idMeal } to={ `/foods/${recipe.idMeal}` }>
-            <div data-testid={ `${index}-recipe-card` }>
+          <Link key={recipe.idMeal} to={`/foods/${recipe.idMeal}`}>
+            <div data-testid={`${index}-recipe-card`}>
               <img
-                src={ recipe.strMealThumb }
+                src={recipe.strMealThumb}
                 alt=""
-                data-testid={ `${index}-card-img` }
+                data-testid={`${index}-card-img`}
               />
-              <span data-testid={ `${index}-card-name` }>{recipe.strMeal}</span>
+              <span data-testid={`${index}-card-name`}>{recipe.strMeal}</span>
             </div>
           </Link>
         ))

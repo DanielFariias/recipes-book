@@ -1,3 +1,5 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 import copy from 'clipboard-copy';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -42,26 +44,26 @@ export default function FavoriteRecipes() {
 
   return (
     <div>
-      <Header />
+      <Header title="Favorite Recipes" />
 
       <div>
         <button
           type="button"
-          onClick={ () => setFilterType('all') }
+          onClick={() => setFilterType('all')}
           data-testid="filter-by-all-btn"
         >
           All
         </button>
         <button
           type="button"
-          onClick={ () => setFilterType('food') }
+          onClick={() => setFilterType('food')}
           data-testid="filter-by-food-btn"
         >
           Food
         </button>
         <button
           type="button"
-          onClick={ () => setFilterType('drink') }
+          onClick={() => setFilterType('drink')}
           data-testid="filter-by-drink-btn"
         >
           Drinks
@@ -69,18 +71,18 @@ export default function FavoriteRecipes() {
       </div>
 
       {recipes && filteredRecipes.map((recipe, index) => (
-        <div key={ recipe.id }>
+        <div key={recipe.id}>
           {recipe.type === 'food'
             ? (
               <>
-                <Link to={ `/foods/${recipe.id}` }>
+                <Link to={`/foods/${recipe.id}`}>
                   <img
-                    src={ recipe.image }
+                    src={recipe.image}
                     alt=""
-                    data-testid={ `${index}-horizontal-image` }
+                    data-testid={`${index}-horizontal-image`}
                   />
                 </Link>
-                <p data-testid={ `${index}-horizontal-top-text` }>
+                <p data-testid={`${index}-horizontal-top-text`}>
                   {recipe.nationality}
                   {' '}
                   -
@@ -90,37 +92,37 @@ export default function FavoriteRecipes() {
                 {/* <p data-testid={ `${index}-horizontal` }>
                 </p> */}
 
-                <Link to={ `/foods/${recipe.id}` }>
-                  <p data-testid={ `${index}-horizontal-name` }>
+                <Link to={`/foods/${recipe.id}`}>
+                  <p data-testid={`${index}-horizontal-name`}>
                     {recipe.name}
                   </p>
                 </Link>
-                <p data-testid={ `${index}-horizontal-done-date` }>
+                <p data-testid={`${index}-horizontal-done-date`}>
                   {recipe.doneDate}
                 </p>
                 <button
                   type="button"
-                  onClick={ () => {
+                  onClick={() => {
                     copy(`http://localhost:3000/foods/${recipe.id}`);
                     setLinkCopied(true);
-                  } }
+                  }}
                 >
                   <img
-                    src={ shareIcon }
+                    src={shareIcon}
                     alt=""
-                    data-testid={ `${index}-horizontal-share-btn` }
+                    data-testid={`${index}-horizontal-share-btn`}
                   />
                 </button>
                 {linkCopied && (<p>Link copied!</p>)}
 
                 <button
                   type="button"
-                  onClick={ () => removeFavorite(recipe) }
+                  onClick={() => removeFavorite(recipe)}
                 >
                   <img
-                    src={ blackHeartIcon }
+                    src={blackHeartIcon}
                     alt=""
-                    data-testid={ `${index}-horizontal-favorite-btn` }
+                    data-testid={`${index}-horizontal-favorite-btn`}
                   />
                 </button>
 
@@ -128,38 +130,38 @@ export default function FavoriteRecipes() {
             )
             : (
               <>
-                <Link to={ `/drinks/${recipe.id}` }>
+                <Link to={`/drinks/${recipe.id}`}>
                   <img
-                    src={ recipe.image }
+                    src={recipe.image}
                     alt=""
-                    data-testid={ `${index}-horizontal-image` }
+                    data-testid={`${index}-horizontal-image`}
                   />
                 </Link>
-                <p data-testid={ `${index}-horizontal-top-text` }>
+                <p data-testid={`${index}-horizontal-top-text`}>
                   {recipe.alcoholicOrNot}
                 </p>
                 {/* <p data-testid={ `${index}-hori` }>
 
                 </p> */}
-                <Link to={ `/drinks/${recipe.id}` }>
-                  <p data-testid={ `${index}-horizontal-name` }>
+                <Link to={`/drinks/${recipe.id}`}>
+                  <p data-testid={`${index}-horizontal-name`}>
                     {recipe.name}
                   </p>
                 </Link>
-                <p data-testid={ `${index}-horizontal-done-date` }>
+                <p data-testid={`${index}-horizontal-done-date`}>
                   {recipe.doneDate}
                 </p>
                 <button
                   type="button"
-                  onClick={ () => {
+                  onClick={() => {
                     copy(`http://localhost:3000/drinks/${recipe.id}`);
                     setLinkCopied(true);
-                  } }
+                  }}
                 >
                   <img
-                    src={ shareIcon }
+                    src={shareIcon}
                     alt=""
-                    data-testid={ `${index}-horizontal-share-btn` }
+                    data-testid={`${index}-horizontal-share-btn`}
                   />
                 </button>
 
@@ -167,12 +169,12 @@ export default function FavoriteRecipes() {
 
                 <button
                   type="button"
-                  onClick={ () => removeFavorite(recipe) }
+                  onClick={() => removeFavorite(recipe)}
                 >
                   <img
-                    src={ blackHeartIcon }
+                    src={blackHeartIcon}
                     alt=""
-                    data-testid={ `${index}-horizontal-favorite-btn` }
+                    data-testid={`${index}-horizontal-favorite-btn`}
                   />
                 </button>
               </>

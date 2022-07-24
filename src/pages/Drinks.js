@@ -1,3 +1,6 @@
+/* eslint-disable consistent-return */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
@@ -46,23 +49,23 @@ export default function Drinks() {
 
   return (
     <div>
-      <Header />
+      <Header title="Drinks" hasSearchInput />
 
       <div>
         <button
           type="button"
           data-testid="All-category-filter"
-          onClick={ () => searchDrinksByCategory('all') }
+          onClick={() => searchDrinksByCategory('all')}
         >
           All
         </button>
         {
           categories.map((category) => (
             <button
-              key={ category.strCategory }
+              key={category.strCategory}
               type="button"
-              data-testid={ `${category.strCategory}-category-filter` }
-              onClick={ () => searchDrinksByCategory(category.strCategory) }
+              data-testid={`${category.strCategory}-category-filter`}
+              onClick={() => searchDrinksByCategory(category.strCategory)}
             >
               {category.strCategory}
             </button>
@@ -72,14 +75,14 @@ export default function Drinks() {
 
       {
         firtsRecipes.map((recipe, index) => (
-          <Link key={ recipe.idDrink } to={ `/drinks/${recipe.idDrink}` }>
-            <div data-testid={ `${index}-recipe-card` }>
+          <Link key={recipe.idDrink} to={`/drinks/${recipe.idDrink}`}>
+            <div data-testid={`${index}-recipe-card`}>
               <img
-                src={ recipe.strDrinkThumb }
+                src={recipe.strDrinkThumb}
                 alt=""
-                data-testid={ `${index}-card-img` }
+                data-testid={`${index}-card-img`}
               />
-              <span data-testid={ `${index}-card-name` }>{recipe.strDrink}</span>
+              <span data-testid={`${index}-card-name`}>{recipe.strDrink}</span>
             </div>
 
           </Link>
