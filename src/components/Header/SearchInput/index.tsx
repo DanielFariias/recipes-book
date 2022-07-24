@@ -2,13 +2,7 @@ import { useState, useContext, ChangeEvent } from 'react';
 import { useLocation } from 'react-router-dom';
 import { RecipesContext } from '../../../context/RecipesContext';
 
-import {
-  SearchDrinkByFirstLetter,
-  SearchDrinkByIngredients,
-  SearchDrinkByName,
-  SearchFoodByFirstLetter,
-  SearchFoodByName,
-} from '../../../services/api';
+import DrinkService from '../../../services/DrinkService';
 import FoodServices from '../../../services/FoodServices';
 
 const RADIO_TYPES = ['ingredient', 'name', 'first-letter'];
@@ -30,23 +24,30 @@ export function SearchInput() {
 
   async function HandleSearchFoods(event: ChangeEvent<HTMLFormElement>) {
     event.preventDefault();
+
     if (location.pathname.includes('/foods')) {
+      // if (!json?.meals?.length) {
+      //   global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      // }
       switch (typeInputRadio) {
         case 'ingredient': {
-          const data = await FoodServices.getFoodByIngredients(searchInput);
+          const data = await FoodServices.requestByIngredient(searchInput);
           if (!data) { return; }
 
           setRecipes(data);
           break;
         }
         case 'name': {
-          const data = await SearchFoodByName(searchInput);
+          const data = await FoodServices.requestByName(searchInput);
           if (!data) { return; }
           setRecipes(data);
           break;
         }
         case 'first-letter': {
-          const data = await SearchFoodByFirstLetter(searchInput);
+          // if (firstLetter.length > 1) {
+          //   global.alert('Your search must have only 1 (one) character');
+          // }
+          const data = await FoodServices.requestByFirstLetter(searchInput);
           if (!data) { return; }
           setRecipes(data);
           break;
@@ -58,19 +59,19 @@ export function SearchInput() {
     } else {
       switch (typeInputRadio) {
         case 'ingredient': {
-          const data = await SearchDrinkByIngredients(searchInput);
+          const data = await DrinkService.requestByIngredient(searchInput);
           if (!data) { return; }
           setRecipes(data);
           break;
         }
         case 'name': {
-          const data = await SearchDrinkByName(searchInput);
+          const data = await DrinkService.requestByName(searchInput);
           if (!data) { return; }
           setRecipes(data);
           break;
         }
         case 'first-letter': {
-          const data = await SearchDrinkByFirstLetter(searchInput);
+          const data = await DrinkService.requestByFirstLetter(searchInput);
           if (!data) { return; }
           setRecipes(data);
           break;
