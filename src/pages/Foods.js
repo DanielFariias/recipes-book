@@ -50,7 +50,7 @@ export default function Foods() {
 
   return (
     <div>
-      <Header title="Foods" />
+      <Header title="Foods" hasSearchInput />
 
       <div>
         <button

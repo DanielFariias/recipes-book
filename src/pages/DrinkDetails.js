@@ -129,19 +129,19 @@ export default function DrinkDetails() {
   }
 
   return (
-    <div style={ styles }>
-      <img src={ drink.strDrinkThumb } alt="" data-testid="recipe-photo" />
+    <div style={styles}>
+      <img src={drink.strDrinkThumb} alt="" data-testid="recipe-photo" />
       <h1 data-testid="recipe-title">{drink.strDrink}</h1>
 
       <button
         type="button"
-        onClick={ () => {
+        onClick={() => {
           saveFoodAtLocalStorage();
           isFavoritefunction();
-        } }
+        }}
       >
         <img
-          src={ isFavorite ? blackHeart : whiteHeart }
+          src={isFavorite ? blackHeart : whiteHeart}
           alt=""
           data-testid="favorite-btn"
         />
@@ -149,15 +149,15 @@ export default function DrinkDetails() {
       </button>
       <button
         type="button"
-        onClick={ () => {
+        onClick={() => {
           copy(`http://localhost:3000/drinks/${drink.idDrink}`);
           setIsLinkCopied(true);
-        } }
+        }}
         data-testid="share-btn"
 
       >
         <img
-          src={ shareIcon }
+          src={shareIcon}
           alt=""
         />
       </button>
@@ -171,8 +171,8 @@ export default function DrinkDetails() {
       <div>
         {ingredients.map((ingredient, index) => (
           <p
-            key={ ingredient[0] }
-            data-testid={ `${index}-ingredient-name-and-measure` }
+            key={ingredient[0]}
+            data-testid={`${index}-ingredient-name-and-measure`}
           >
             {`${ingredient[1]} - ${measure[index] && measure[index][1]}`}
           </p>
@@ -185,30 +185,30 @@ export default function DrinkDetails() {
 
       <iframe
         data-testid="video"
-        src={ generateYoutubeLink(drink?.strYoutube) }
+        src={generateYoutubeLink(drink?.strYoutube)}
         width="300"
         height="auto"
-        title={ `${drink?.strDrink} preparation` }
+        title={`${drink?.strDrink} preparation`}
       />
 
       <section
         className="recommendations-container"
-        style={ {
+        style={{
           width: 360,
           overflow: 'hidden',
           overflowX: 'scroll',
           display: 'flex',
           gap: 20,
-        } }
+        }}
       >
         {recomendations.map((recipe, index) => (
           <div
-            key={ recipe.idMeal }
-            data-testid={ `${index}-recomendation-card` }
+            key={recipe.idMeal}
+            data-testid={`${index}-recomendation-card`}
 
           >
-            <img src={ recipe.strMealThumb } alt="" width={ 200 } />
-            <p data-testid={ `${index}-recomendation-title` }>{recipe.strMeal}</p>
+            <img src={recipe.strMealThumb} alt="" width={200} />
+            <p data-testid={`${index}-recomendation-title`}>{recipe.strMeal}</p>
           </div>
         ))}
       </section>
@@ -217,14 +217,14 @@ export default function DrinkDetails() {
         <button
           type="button"
           data-testid="start-recipe-btn"
-          onClick={ () => history.push(`/drinks/${drink.idDrink}/in-progress`) }
-          style={ {
+          onClick={() => history.push(`/drinks/${drink.idDrink}/in-progress`)}
+          style={{
             position: 'fixed',
             bottom: 0,
             left: '50%',
             transform: 'translateX(-50%)',
             fontSize: 24,
-          } }
+          }}
         >
           {!isInProgressRecipe() ? 'Start Recipe' : 'Continue Recipe'}
         </button>

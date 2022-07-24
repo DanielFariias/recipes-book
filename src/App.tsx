@@ -11,7 +11,6 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Profile from './pages/Profile';
 
-import './App.css';
 import { RecipesProvider } from './context/RecipesContext';
 
 export default function App() {

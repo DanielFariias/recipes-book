@@ -31,15 +31,15 @@ export default function Login() {
     history.push('/foods');
   }
   return (
-    <form onSubmit={ handleSubmit }>
+    <form onSubmit={handleSubmit}>
       <label htmlFor="email-input">
         Email:
         <input
           id="email-input"
           type="email"
           data-testid="email-input"
-          value={ inputEmail }
-          onChange={ (e) => setInputEmail(e.target.value) }
+          value={inputEmail}
+          onChange={(e) => setInputEmail(e.target.value)}
         />
       </label>
       <label htmlFor="password-input">
@@ -48,14 +48,14 @@ export default function Login() {
           id="password-input"
           type="password"
           data-testid="password-input"
-          value={ InputPassword }
-          onChange={ (e) => setInputPassword(e.target.value) }
+          value={InputPassword}
+          onChange={(e) => setInputPassword(e.target.value)}
         />
       </label>
       <button
         type="submit"
         data-testid="login-submit-btn"
-        disabled={ !isValidForm() }
+        disabled={!isValidForm()}
       >
         Enter
       </button>

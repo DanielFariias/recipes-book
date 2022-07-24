@@ -200,19 +200,19 @@ export default function FoodProgress() {
   const buttonDisabled = (measure.length !== completedIngredients.length);
   // console.log(buttonDisabled);
   return (
-    <div style={ styles }>
-      <img src={ meal.strMealThumb } alt="" data-testid="recipe-photo" />
+    <div style={styles}>
+      <img src={meal.strMealThumb} alt="" data-testid="recipe-photo" />
       <h1 data-testid="recipe-title">{meal.strMeal}</h1>
 
       <button
         type="button"
-        onClick={ () => {
+        onClick={() => {
           saveFoodAtLocalStorage();
           isFavoritefunction();
-        } }
+        }}
       >
         <img
-          src={ isFavorite ? blackHeart : whiteHeart }
+          src={isFavorite ? blackHeart : whiteHeart}
           alt=""
           data-testid="favorite-btn"
         />
@@ -221,12 +221,12 @@ export default function FoodProgress() {
       <button
         data-testid="share-btn"
         type="button"
-        onClick={ () => {
+        onClick={() => {
           copy(`http://localhost:3000/foods/${meal.idMeal}`);
           setIsLinkCopied(true);
-        } }
+        }}
       >
-        <img src={ shareIcon } alt="" />
+        <img src={shareIcon} alt="" />
       </button>
       { isLinkCopied && <p>Link copied!</p>}
       <br />
@@ -236,18 +236,18 @@ export default function FoodProgress() {
       <div>
         {ingredients.map((ingredient, index) => (
           <p
-            key={ ingredient[0] }
-            data-testid={ `${index}-ingredient-name-and-measure` }
+            key={ingredient[0]}
+            data-testid={`${index}-ingredient-name-and-measure`}
           >
             <label
-              htmlFor={ `${index}-ingredient-step` }
-              data-testid={ `${index}-ingredient-step` }
+              htmlFor={`${index}-ingredient-step`}
+              data-testid={`${index}-ingredient-step`}
             >
               <input
                 type="checkbox"
-                onChange={ () => handleCheckInput(ingredient) }
-                id={ `${index}-ingredient-step` }
-                checked={ completedIngredients.includes(ingredient[1]) }
+                onChange={() => handleCheckInput(ingredient)}
+                id={`${index}-ingredient-step`}
+                checked={completedIngredients.includes(ingredient[1])}
               />
               {`${ingredient[1]} - ${measure[index][1]}`}
             </label>
@@ -260,8 +260,8 @@ export default function FoodProgress() {
       <button
         type="button"
         data-testid="finish-recipe-btn"
-        disabled={ buttonDisabled }
-        onClick={ finishRecipe }
+        disabled={buttonDisabled}
+        onClick={finishRecipe}
       >
         Finish recipe
 

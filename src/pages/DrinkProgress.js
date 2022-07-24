@@ -191,19 +191,19 @@ export default function DrinkProgress() {
   }
 
   return (
-    <div style={ styles }>
-      <img src={ drink.strDrinkThumb } alt="" data-testid="recipe-photo" />
+    <div style={styles}>
+      <img src={drink.strDrinkThumb} alt="" data-testid="recipe-photo" />
       <h1 data-testid="recipe-title">{drink.strDrink}</h1>
 
       <button
         type="button"
-        onClick={ () => {
+        onClick={() => {
           saveFoodAtLocalStorage();
           isFavoritefunction();
-        } }
+        }}
       >
         <img
-          src={ isFavorite ? blackHeart : whiteHeart }
+          src={isFavorite ? blackHeart : whiteHeart}
           alt=""
           data-testid="favorite-btn"
         />
@@ -211,15 +211,15 @@ export default function DrinkProgress() {
       </button>
       <button
         type="button"
-        onClick={ () => {
+        onClick={() => {
           copy(`http://localhost:3000/drinks/${drink.idDrink}`);
           setIsLinkCopied(true);
-        } }
+        }}
         data-testid="share-btn"
 
       >
         <img
-          src={ shareIcon }
+          src={shareIcon}
           alt=""
         />
       </button>
@@ -233,18 +233,18 @@ export default function DrinkProgress() {
       <div>
         {ingredients.map((ingredient, index) => (
           <p
-            key={ ingredient[0] }
-            data-testid={ `${index}-ingredient-name-and-measure` }
+            key={ingredient[0]}
+            data-testid={`${index}-ingredient-name-and-measure`}
           >
             <label
-              data-testid={ `${index}-ingredient-step` }
-              htmlFor={ `${index}-ingredient-step` }
+              data-testid={`${index}-ingredient-step`}
+              htmlFor={`${index}-ingredient-step`}
             >
               <input
                 type="checkbox"
-                id={ `${index}-ingredient-step` }
-                onClick={ () => handleCheckInput(ingredient) }
-                checked={ completedIngredients.includes(ingredient[1]) }
+                id={`${index}-ingredient-step`}
+                onClick={() => handleCheckInput(ingredient)}
+                checked={completedIngredients.includes(ingredient[1])}
               />
               {`${ingredient[1]} - ${measure[index] && measure[index][1]}`}
             </label>
@@ -258,8 +258,8 @@ export default function DrinkProgress() {
       <button
         type="button"
         data-testid="finish-recipe-btn"
-        disabled={ measure.length !== completedIngredients.length }
-        onClick={ finishRecipe }
+        disabled={measure.length !== completedIngredients.length}
+        onClick={finishRecipe}
       >
         Finish recipe
       </button>

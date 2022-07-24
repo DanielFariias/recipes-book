@@ -16,14 +16,14 @@ const styles = {
 export default function Footer() {
   return (
     <footer
-      style={ styles }
+      style={styles}
       data-testid="footer"
     >
       <Link to="/drinks">
-        <img src={ drinkIcon } alt="" data-testid="drinks-bottom-btn" />
+        <img src={drinkIcon} alt="" data-testid="drinks-bottom-btn" />
       </Link>
       <Link to="/foods">
-        <img src={ mealIcon } alt="" data-testid="food-bottom-btn" />
+        <img src={mealIcon} alt="" data-testid="food-bottom-btn" />
       </Link>
     </footer>
   );
