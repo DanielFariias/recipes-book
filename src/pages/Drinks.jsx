@@ -1,11 +1,7 @@
-/* eslint-disable consistent-return */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/extensions */
 import { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import { ListRecipeCard } from '../components/ListRecipeCard';
+
+import { RecipeContent } from '../components/RecipeContent';
 import { RecipesContext } from '../context/RecipesContext';
 
 export default function Drinks() {
@@ -32,50 +28,28 @@ export default function Drinks() {
 
   function searchDrinksByCategory(category) {
     if (category === 'all' || category === categorySelected) {
-      return fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+      fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
         .then((res) => res.json())
         .then((json) => {
           handleAddRecipes(json.drinks);
           setCategorySelected('');
         });
+    } else {
+      fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`)
+        .then((res) => res.json())
+        .then((json) => {
+          handleAddRecipes(json.drinks);
+          setCategorySelected(category);
+        });
     }
-
-    fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`)
-      .then((res) => res.json())
-      .then((json) => {
-        handleAddRecipes(json.drinks);
-        setCategorySelected(category);
-      });
   }
 
   return (
-    <div>
-      <Header title="Drinks" hasSearchInput />
-
-      <div>
-        <button
-          type="button"
-          onClick={() => searchDrinksByCategory('all')}
-        >
-          All
-        </button>
-        {
-          categories.map((category) => (
-            <button
-              key={category.strCategory}
-              type="button"
-              onClick={() => searchDrinksByCategory(category.strCategory)}
-            >
-              {category.strCategory}
-            </button>
-          ))
-        }
-      </div>
-
-      <ListRecipeCard recipes={firtsRecipes} />
-
-      <Footer />
-
-    </div>
+    <RecipeContent
+      title="Drinks"
+      categories={categories}
+      recipes={firtsRecipes}
+      searchByCategory={searchDrinksByCategory}
+    />
   );
 }

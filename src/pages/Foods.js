@@ -1,11 +1,7 @@
-/* eslint-disable consistent-return */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import { ListRecipeCard } from '../components/ListRecipeCard';
+
+import { RecipeContent } from '../components/RecipeContent';
 import { RecipesContext } from '../context/RecipesContext';
 
 export default function Foods() {
@@ -28,19 +24,20 @@ export default function Foods() {
 
   function searchFoodsByCategory(category) {
     if (category === 'all' || category === categorySelected) {
-      return fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+      fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
         .then((res) => res.json())
         .then((json) => {
           handleAddRecipes(json.meals);
           setCategorySelected('');
         });
+    } else {
+      fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+        .then((res) => res.json())
+        .then((json) => {
+          setCategorySelected(category);
+          handleAddRecipes(json.meals);
+        });
     }
-    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
-      .then((res) => res.json())
-      .then((json) => {
-        setCategorySelected(category);
-        handleAddRecipes(json.meals);
-      });
   }
 
   if ((recipes.length === 1) && !categorySelected) {
@@ -48,33 +45,11 @@ export default function Foods() {
   }
 
   return (
-    <div>
-      <Header title="Foods" hasSearchInput />
-
-      <div>
-        <button
-          type="button"
-          onClick={() => searchFoodsByCategory('all')}
-        >
-          All
-        </button>
-
-        {
-          categories.map((category) => (
-            <button
-              key={category.strCategory}
-              type="button"
-              onClick={() => searchFoodsByCategory(category.strCategory)}
-            >
-              {category.strCategory}
-            </button>
-          ))
-        }
-      </div>
-
-      <ListRecipeCard recipes={firtsRecipes} />
-
-      <Footer />
-    </div>
+    <RecipeContent
+      title="Foods"
+      categories={categories}
+      recipes={firtsRecipes}
+      searchByCategory={searchFoodsByCategory}
+    />
   );
 }
