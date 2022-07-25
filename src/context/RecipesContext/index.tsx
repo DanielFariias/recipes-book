@@ -1,17 +1,7 @@
 import {
-  createContext, ReactNode, useMemo, useState,
+  createContext, useMemo, useState,
 } from 'react';
-
-type IRecipe = any
-
-interface IRecipesContext {
-  recipes: IRecipe[]
-  handleAddRecipes: (NewRecipes: IRecipe[]) => void
-}
-
-interface IRecipesProvider {
-  children: ReactNode
-}
+import { IRecipe, IRecipesContext, IRecipesProvider } from './RecipesTypes';
 
 export const RecipesContext = createContext({} as IRecipesContext);
 

@@ -1,10 +1,11 @@
 /* eslint-disable consistent-return */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
-import React, { useContext, useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import { ListRecipeCard } from '../components/ListRecipeCard';
 import { RecipesContext } from '../context/RecipesContext';
 
 export default function Drinks() {
@@ -54,7 +55,6 @@ export default function Drinks() {
       <div>
         <button
           type="button"
-          data-testid="All-category-filter"
           onClick={() => searchDrinksByCategory('all')}
         >
           All
@@ -64,7 +64,6 @@ export default function Drinks() {
             <button
               key={category.strCategory}
               type="button"
-              data-testid={`${category.strCategory}-category-filter`}
               onClick={() => searchDrinksByCategory(category.strCategory)}
             >
               {category.strCategory}
@@ -73,21 +72,8 @@ export default function Drinks() {
         }
       </div>
 
-      {
-        firtsRecipes.map((recipe, index) => (
-          <Link key={recipe.idDrink} to={`/drinks/${recipe.idDrink}`}>
-            <div data-testid={`${index}-recipe-card`}>
-              <img
-                src={recipe.strDrinkThumb}
-                alt=""
-                data-testid={`${index}-card-img`}
-              />
-              <span data-testid={`${index}-card-name`}>{recipe.strDrink}</span>
-            </div>
+      <ListRecipeCard recipes={firtsRecipes} />
 
-          </Link>
-        ))
-      }
       <Footer />
 
     </div>

@@ -1,19 +1,18 @@
 /* eslint-disable consistent-return */
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
-import React, { useContext, useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import { ListRecipeCard } from '../components/ListRecipeCard';
 import { RecipesContext } from '../context/RecipesContext';
 
 export default function Foods() {
   const [categories, setCategories] = useState([]);
   const [categorySelected, setCategorySelected] = useState('');
-
   const { recipes, handleAddRecipes } = useContext(RecipesContext);
   const history = useHistory();
-  console.log(recipes[0]);
 
   useEffect(() => {
     fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
@@ -24,6 +23,8 @@ export default function Foods() {
       .then((res) => res.json())
       .then((json) => setCategories(json.meals.slice(0, 5)));
   }, []);
+
+  const firtsRecipes = recipes.slice(0, 12);
 
   function searchFoodsByCategory(category) {
     if (category === 'all' || category === categorySelected) {
@@ -46,8 +47,6 @@ export default function Foods() {
     history.push(`/foods/${recipes[0].idMeal}`);
   }
 
-  const firtsRecipes = recipes.slice(0, 12);
-
   return (
     <div>
       <Header title="Foods" hasSearchInput />
@@ -55,7 +54,6 @@ export default function Foods() {
       <div>
         <button
           type="button"
-          data-testid="All-category-filter"
           onClick={() => searchFoodsByCategory('all')}
         >
           All
@@ -66,7 +64,6 @@ export default function Foods() {
             <button
               key={category.strCategory}
               type="button"
-              data-testid={`${category.strCategory}-category-filter`}
               onClick={() => searchFoodsByCategory(category.strCategory)}
             >
               {category.strCategory}
@@ -75,21 +72,7 @@ export default function Foods() {
         }
       </div>
 
-      {
-        firtsRecipes.map((recipe, index) => (
-          <Link key={recipe.idMeal} to={`/foods/${recipe.idMeal}`}>
-            <div data-testid={`${index}-recipe-card`}>
-              <img
-                src={recipe.strMealThumb}
-                alt=""
-                data-testid={`${index}-card-img`}
-                width={200}
-              />
-              <span data-testid={`${index}-card-name`}>{recipe.strMeal}</span>
-            </div>
-          </Link>
-        ))
-      }
+      <ListRecipeCard recipes={firtsRecipes} />
 
       <Footer />
     </div>
