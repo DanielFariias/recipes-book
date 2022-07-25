@@ -6,17 +6,21 @@ interface IRecipeCardProps {
 }
 
 export function RecipeCard({ recipe }: IRecipeCardProps) {
+  const redirectUrl = recipe.idDrink
+    ? `/drinks/${recipe.idDrink}`
+    : `/foods/${recipe.idMeal}`;
+
+  const recipeImage = recipe.strDrinkThumb ?? recipe.strMealThumb;
+  const recipeName = recipe.strDrink ?? recipe.strMeal;
+
   return (
     <div>
-      <Link to={recipe.idDrink
-        ? `/drinks/${recipe.idDrink}`
-        : `/foods/${recipe.idMeal}`}
-      >
+      <Link to={redirectUrl}>
         <img
-          src={recipe.strDrinkThumb || recipe.strMealThumb}
+          src={recipeImage}
           alt=""
         />
-        <span>{recipe.strDrink || recipe.strMeal }</span>
+        <span>{recipeName}</span>
       </Link>
     </div>
   );
