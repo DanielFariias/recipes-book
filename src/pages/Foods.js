@@ -11,14 +11,14 @@ export default function Foods() {
   const [categories, setCategories] = useState([]);
   const [categorySelected, setCategorySelected] = useState('');
 
-  const { recipes, setRecipes } = useContext(RecipesContext);
+  const { recipes, handleAddRecipes } = useContext(RecipesContext);
   const history = useHistory();
-  console.log(recipes);
+  console.log(recipes[0]);
 
   useEffect(() => {
     fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
       .then((res) => res.json())
-      .then((json) => setRecipes(json.meals));
+      .then((json) => handleAddRecipes(json.meals));
 
     fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
       .then((res) => res.json())
@@ -30,7 +30,7 @@ export default function Foods() {
       return fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
         .then((res) => res.json())
         .then((json) => {
-          setRecipes(json.meals);
+          handleAddRecipes(json.meals);
           setCategorySelected('');
         });
     }
@@ -38,7 +38,7 @@ export default function Foods() {
       .then((res) => res.json())
       .then((json) => {
         setCategorySelected(category);
-        setRecipes(json.meals);
+        handleAddRecipes(json.meals);
       });
   }
 

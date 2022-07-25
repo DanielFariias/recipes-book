@@ -1,5 +1,6 @@
 import { useState, useContext, ChangeEvent } from 'react';
 import { useLocation } from 'react-router-dom';
+
 import { RecipesContext } from '../../../context/RecipesContext';
 
 import DrinkService from '../../../services/DrinkService';
@@ -10,8 +11,8 @@ const RADIO_TYPES = ['ingredient', 'name', 'first-letter'];
 export function SearchInput() {
   const [searchInput, setSearchInput] = useState('');
   const [typeInputRadio, setTypeInputRadio] = useState('');
-  const { setRecipes } = useContext<any>(RecipesContext);
 
+  const { handleAddRecipes } = useContext(RecipesContext);
   const location = useLocation();
 
   function handleSearchInput(event: ChangeEvent<HTMLInputElement>) {
@@ -22,71 +23,75 @@ export function SearchInput() {
     setTypeInputRadio(event.target.value);
   }
 
+  async function requestFood() {
+    if (typeInputRadio === 'ingredient') {
+      const data = await FoodServices.requestByIngredient(searchInput);
+      if (!data) { return; }
+
+      handleAddRecipes(data);
+    }
+
+    if (typeInputRadio === 'name') {
+      const data = await FoodServices.requestByName(searchInput);
+      if (!data) { return; }
+      handleAddRecipes(data);
+    }
+
+    if (typeInputRadio === 'first-letter') {
+      if (searchInput.length > 1) {
+        global.alert('Your search must have only 1 (one) character');
+        return;
+      }
+
+      const data = await FoodServices.requestByFirstLetter(searchInput);
+      if (!data) { return; }
+      handleAddRecipes(data);
+    }
+  }
+
+  async function requestDrink() {
+    if (typeInputRadio === 'ingredient') {
+      const data = await DrinkService.requestByIngredient(searchInput);
+      if (!data) { return; }
+
+      handleAddRecipes(data);
+    }
+
+    if (typeInputRadio === 'name') {
+      const data = await DrinkService.requestByName(searchInput);
+      if (!data) { return; }
+      handleAddRecipes(data);
+    }
+
+    if (typeInputRadio === 'first-letter') {
+      if (searchInput.length > 1) {
+        global.alert('Your search must have only 1 (one) character');
+        return;
+      }
+
+      const data = await DrinkService.requestByFirstLetter(searchInput);
+      if (!data) { return; }
+      handleAddRecipes(data);
+    }
+  }
+
   async function HandleSearchFoods(event: ChangeEvent<HTMLFormElement>) {
     event.preventDefault();
+    // if (!json?.meals?.length) {
+    //   global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    // }
 
     if (location.pathname.includes('/foods')) {
-      // if (!json?.meals?.length) {
-      //   global.alert('Sorry, we haven\'t found any recipes for these filters.');
-      // }
-      switch (typeInputRadio) {
-        case 'ingredient': {
-          const data = await FoodServices.requestByIngredient(searchInput);
-          if (!data) { return; }
-
-          setRecipes(data);
-          break;
-        }
-        case 'name': {
-          const data = await FoodServices.requestByName(searchInput);
-          if (!data) { return; }
-          setRecipes(data);
-          break;
-        }
-        case 'first-letter': {
-          // if (firstLetter.length > 1) {
-          //   global.alert('Your search must have only 1 (one) character');
-          // }
-          const data = await FoodServices.requestByFirstLetter(searchInput);
-          if (!data) { return; }
-          setRecipes(data);
-          break;
-        }
-        default: {
-          global.alert('aaa');
-        }
-      }
+      requestFood();
     } else {
-      switch (typeInputRadio) {
-        case 'ingredient': {
-          const data = await DrinkService.requestByIngredient(searchInput);
-          if (!data) { return; }
-          setRecipes(data);
-          break;
-        }
-        case 'name': {
-          const data = await DrinkService.requestByName(searchInput);
-          if (!data) { return; }
-          setRecipes(data);
-          break;
-        }
-        case 'first-letter': {
-          const data = await DrinkService.requestByFirstLetter(searchInput);
-          if (!data) { return; }
-          setRecipes(data);
-          break;
-        }
-        default: {
-          global.alert('aaa');
-        }
-      }
+      requestDrink();
     }
   }
 
   return (
     <form onSubmit={HandleSearchFoods}>
       <label htmlFor="search-input">
-        What you want search?
+        What do you want to search?
         <input
           type="text"
           id="search-input"
@@ -98,7 +103,7 @@ export function SearchInput() {
 
       {RADIO_TYPES.map((radio) => (
         <label key={radio} htmlFor={`${radio}-search-radio`}>
-          {radio}
+          <span>{radio}</span>
           <input
             type="radio"
             value={radio}
@@ -113,6 +118,5 @@ export function SearchInput() {
         Buscar
       </button>
     </form>
-
   );
 }

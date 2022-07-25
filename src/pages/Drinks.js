@@ -10,13 +10,13 @@ import { RecipesContext } from '../context/RecipesContext';
 export default function Drinks() {
   const [categories, setCategories] = useState([]);
   const [categorySelected, setCategorySelected] = useState('');
-  const { recipes, setRecipes } = useContext(RecipesContext);
+  const { recipes, handleAddRecipes } = useContext(RecipesContext);
   const history = useHistory();
 
   useEffect(() => {
     fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
       .then((res) => res.json())
-      .then((json) => setRecipes(json.drinks));
+      .then((json) => handleAddRecipes(json.drinks));
 
     fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
       .then((res) => res.json())
@@ -34,7 +34,7 @@ export default function Drinks() {
       return fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
         .then((res) => res.json())
         .then((json) => {
-          setRecipes(json.drinks);
+          handleAddRecipes(json.drinks);
           setCategorySelected('');
         });
     }
@@ -42,7 +42,7 @@ export default function Drinks() {
     fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`)
       .then((res) => res.json())
       .then((json) => {
-        setRecipes(json.drinks);
+        handleAddRecipes(json.drinks);
         setCategorySelected(category);
       });
   }
