@@ -2,14 +2,14 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { RecipeDetails } from '../../components/RecipeDetails';
+import { RecipeDetails } from '../../../components/RecipeDetails';
 
-import LocalStorageService from '../../services/LocalStorageService';
-import DrinkService from '../../services/DrinkService';
-import FoodServices from '../../services/FoodServices';
+import LocalStorageService from '../../../services/LocalStorageService';
+import DrinkService from '../../../services/DrinkService';
+import FoodServices from '../../../services/FoodServices';
 
-import filterIngredients from '../../utils/filterIngredients';
-import { IRecipe } from '../../context/RecipesContext/RecipesTypes';
+import filterIngredients from '../../../utils/filterIngredients';
+import { IRecipe } from '../../../context/RecipesContext/RecipesTypes';
 
 interface IParams {
   id: string

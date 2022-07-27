@@ -1,17 +1,19 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import { RecipesProvider } from './context/RecipesContext';
+
 import Login from './pages/Login';
-import Foods from './pages/Foods';
-import FoodProgress from './pages/FoodProgress';
-import Drinks from './pages/Drinks';
-import DrinkDetails from './pages/DrinkDetails';
-import DrinkProgress from './pages/DrinkProgress';
+import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
-import Profile from './pages/Profile';
 
-import { RecipesProvider } from './context/RecipesContext';
-import FoodDetails from './pages/FoodsDetails';
+import Drinks from './pages/Drinks';
+import DrinkDetails from './pages/Drinks/DrinkDetails';
+import DrinkProgress from './pages/Drinks/DrinkProgress';
+
+import Foods from './pages/Foods';
+import FoodDetails from './pages/Foods/Details';
+import FoodProgress from './pages/Foods/Progress';
 
 export default function App() {
   return (

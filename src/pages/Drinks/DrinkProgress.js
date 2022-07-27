@@ -1,11 +1,13 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable consistent-return */
 /* eslint-disable no-magic-numbers */
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import copy from 'clipboard-copy';
 
-import whiteHeart from '../images/whiteHeartIcon.svg';
-import blackHeart from '../images/blackHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
+import whiteHeart from '../../images/whiteHeartIcon.svg';
+import blackHeart from '../../images/blackHeartIcon.svg';
+import shareIcon from '../../images/shareIcon.svg';
 
 const styles = {
   width: '100%',

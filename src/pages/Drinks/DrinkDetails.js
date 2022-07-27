@@ -2,13 +2,13 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { RecipeDetails } from '../components/RecipeDetails';
+import { RecipeDetails } from '../../components/RecipeDetails';
 
-import DrinkService from '../services/DrinkService';
-import FoodServices from '../services/FoodServices';
-import LocalStorageService from '../services/LocalStorageService';
+import DrinkService from '../../services/DrinkService';
+import FoodServices from '../../services/FoodServices';
+import LocalStorageService from '../../services/LocalStorageService';
 
-import filterIngredients from '../utils/filterIngredients';
+import filterIngredients from '../../utils/filterIngredients';
 
 export default function DrinkDetails() {
   const [drink, setDrink] = useState({});
