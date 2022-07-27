@@ -8,6 +8,13 @@ class DrinkService {
     return json.drinks;
   }
 
+  async requestById(id: string) {
+    const response = await fetch(`${BASE_URL}/lookup.php?i=${id}`);
+    const { drinks: [recipe] } = await response.json();
+
+    return recipe;
+  }
+
   async listCategories() {
     const response = await fetch(`${BASE_URL}/list.php?c=list`);
     const json = await response.json();

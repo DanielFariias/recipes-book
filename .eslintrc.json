@@ -27,6 +27,7 @@
     "import/extensions":"off",
     "import/no-unresolved":"off",
     "class-methods-use-this":"off",
-    "react/jsx-no-bind": "off"
+    "react/jsx-no-bind": "off",
+    "react/require-default-props": "off"
   }
 }

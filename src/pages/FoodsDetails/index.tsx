@@ -2,20 +2,25 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { RecipeDetails } from '../components/RecipeDetails';
+import { RecipeDetails } from '../../components/RecipeDetails';
 
-import LocalStorageService from '../services/LocalStorageService';
-import DrinkService from '../services/DrinkService';
-import FoodServices from '../services/FoodServices';
+import LocalStorageService from '../../services/LocalStorageService';
+import DrinkService from '../../services/DrinkService';
+import FoodServices from '../../services/FoodServices';
 
-import filterIngredients from '../utils/filterIngredients';
+import filterIngredients from '../../utils/filterIngredients';
+import { IRecipe } from '../../context/RecipesContext/RecipesTypes';
+
+interface IParams {
+  id: string
+}
 
 export default function FoodDetails() {
-  const [meal, setMeal] = useState({});
+  const [meal, setMeal] = useState<IRecipe>({});
   const [isFavorite, setIsFavorite] = useState(false);
   const [recomendations, setRecomendations] = useState([]);
 
-  const { id: RecipeId } = useParams();
+  const { id: RecipeId } = useParams<IParams>();
 
   useEffect(() => {
     FoodServices.requestById(RecipeId)
@@ -37,7 +42,7 @@ export default function FoodDetails() {
     }
   }
 
-  function generateYoutubeLink(youtubeLink) {
+  function generateYoutubeLink(youtubeLink: string) {
     if (!youtubeLink) return null;
     const baseEmbedURL = 'https://www.youtube.com/embed/';
     const videoId = youtubeLink.split('v=')[1];
@@ -75,13 +80,13 @@ export default function FoodDetails() {
     const storage = LocalStorageService.get('doneRecipes');
 
     if (storage) {
-      return storage.find((recipe) => recipe.id === meal.idMeal);
+      return Boolean(storage.find((recipe) => recipe.id === meal.idMeal));
     }
     return false;
   }
 
   function verifyProgressRecipe() {
-    const storage = LocalStorageService.get('inProgressRecipes');
+    const storage: any = LocalStorageService.get('inProgressRecipes');
 
     if (storage) {
       return storage.meals[meal.idMeal];

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 import drinkIcon from '../images/drinkIcon.svg';
@@ -17,13 +16,12 @@ export default function Footer() {
   return (
     <footer
       style={styles}
-      data-testid="footer"
     >
       <Link to="/drinks">
-        <img src={drinkIcon} alt="" data-testid="drinks-bottom-btn" />
+        <img src={drinkIcon} alt="" />
       </Link>
       <Link to="/foods">
-        <img src={mealIcon} alt="" data-testid="food-bottom-btn" />
+        <img src={mealIcon} alt="" />
       </Link>
     </footer>
   );

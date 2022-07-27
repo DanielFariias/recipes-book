@@ -15,6 +15,13 @@ class FoodServices {
     return json.meals;
   }
 
+  async requestById(id: string) {
+    const response = await fetch(`${BASE_URL}/lookup.php?i=${id}`);
+    const { meals: [recipe] } = await response.json();
+
+    return recipe;
+  }
+
   async requestByCategory(category = '') {
     if (!category) {
       const res = await this.listAll();
