@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Login from './pages/Login';
 import Foods from './pages/Foods';
-import FoodDetails from './pages/FoodDetails';
 import FoodProgress from './pages/FoodProgress';
 import Drinks from './pages/Drinks';
 import DrinkDetails from './pages/DrinkDetails';
@@ -12,6 +11,7 @@ import FavoriteRecipes from './pages/FavoriteRecipes';
 import Profile from './pages/Profile';
 
 import { RecipesProvider } from './context/RecipesContext';
+import FoodDetails from './pages/FoodsDetails';
 
 export default function App() {
   return (
