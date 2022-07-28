@@ -1,4 +1,4 @@
-interface IFavoriteRecipe {
+export interface IFavoriteRecipe {
   id: string
   type: string
   nationality: string
