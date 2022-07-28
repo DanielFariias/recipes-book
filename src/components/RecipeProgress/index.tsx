@@ -36,12 +36,19 @@ export default function RecipeProgress({
   const ingredients = filterIngredients(recipe, 'strIngredient');
   const measure = filterIngredients(recipe, 'strMeasure');
 
-  const buttonDisabled = (measure.length !== completedIngredients.length);
+  const buttonDisabled = (ingredients.length !== completedIngredients.length);
+
+  const image = recipe.strMealThumb ?? recipe.strDrinkThumb;
+  const name = recipe.strMeal ?? recipe.strDrink;
+
+  const copyUrl = recipe.idMeal
+    ? `http://localhost:3000/foods/${recipe.idMeal}`
+    : `http://localhost:3000/drinks/${recipe.idDrink}`;
 
   return (
     <div style={styles}>
-      <img src={recipe.strMealThumb} alt="" />
-      <h1>{recipe.strMeal}</h1>
+      <img src={image} alt="" />
+      <h1>{name}</h1>
 
       <button
         type="button"
@@ -56,10 +63,11 @@ export default function RecipeProgress({
         />
 
       </button>
+
       <button
         type="button"
         onClick={() => {
-          copy(`http://localhost:3000/foods/${recipe.idMeal}`);
+          copy(copyUrl);
           setIsLinkCopied(true);
         }}
       >
@@ -70,7 +78,7 @@ export default function RecipeProgress({
       <span>{recipe.strCategory}</span>
 
       <div>
-        {ingredients.map((ingredient:any, index:any) => (
+        {measure && ingredients?.map((ingredient: any, index: any) => (
           <p
             key={ingredient[0]}
           >
@@ -83,7 +91,7 @@ export default function RecipeProgress({
                 id={`${index}-ingredient-step`}
                 checked={completedIngredients.includes(ingredient[1])}
               />
-              {`${ingredient[1]} - ${measure[index][1]}`}
+              {`${ingredient[1]} - ${measure[index] && measure[index][1]}`}
             </label>
           </p>
         ))}

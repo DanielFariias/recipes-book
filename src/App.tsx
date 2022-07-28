@@ -8,12 +8,12 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 
 import Drinks from './pages/Drinks';
-import DrinkDetails from './pages/Drinks/DrinkDetails';
-import DrinkProgress from './pages/Drinks/DrinkProgress';
 
 import Foods from './pages/Foods';
 import FoodDetails from './pages/Foods/Details';
 import FoodProgress from './pages/Foods/Progress';
+import DrinkDetails from './pages/Drinks/Details';
+import DrinkProgress from './pages/Drinks/Progress';
 
 export default function App() {
   return (

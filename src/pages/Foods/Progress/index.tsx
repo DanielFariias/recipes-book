@@ -72,14 +72,6 @@ export default function FoodProgress() {
     return LocalStorageService.set('favoriteRecipes', [NewRecipe]);
   }
 
-  useEffect(() => {
-    FoodServices.requestById(id)
-      .then((res) => setMeal(res));
-
-    setCompletedIngredients(VerifyIsRecipeExistsInLocalStorage() ?? []);
-    checkIsFavoriteRecipe();
-  }, []);
-
   function handleFinishedRecipe() {
     const storage = LocalStorageService.get('doneRecipes') ?? [];
 
@@ -111,6 +103,7 @@ export default function FoodProgress() {
     if (isExist) {
       const ingredientsList: any = currentIngredientsList
         .filter((item:any) => item !== ingredient[1]);
+
       const storageWithNewIngredientsList = {
         ...storage,
         meals: { ...storage.meals, [id]: ingredientsList },
@@ -130,6 +123,14 @@ export default function FoodProgress() {
       LocalStorageService.set('inProgressRecipes', storageWithNewIngredientsList);
     }
   }
+
+  useEffect(() => {
+    FoodServices.requestById(id)
+      .then((res) => setMeal(res));
+
+    setCompletedIngredients(VerifyIsRecipeExistsInLocalStorage() ?? []);
+    checkIsFavoriteRecipe();
+  }, []);
 
   return (
     <RecipeProgress
