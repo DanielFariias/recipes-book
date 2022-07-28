@@ -1,19 +1,19 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import { RecipesProvider } from './context/RecipesContext';
+import { RecipesProvider } from '../../context/RecipesContext';
 
-import Login from './pages/Login';
-import Profile from './pages/Profile';
-import DoneRecipes from './pages/DoneRecipes';
-import FavoriteRecipes from './pages/FavoriteRecipes';
+import FavoriteRecipes from '../../pages/FavoriteRecipes';
+import DoneRecipes from '../../pages/DoneRecipes';
+import Profile from '../../pages/Profile';
+import Login from '../../pages/Login';
 
-import Drinks from './pages/Drinks';
+import DrinkProgress from '../../pages/Drinks/Progress';
+import DrinkDetails from '../../pages/Drinks/Details';
+import Drinks from '../../pages/Drinks';
 
-import Foods from './pages/Foods';
-import FoodDetails from './pages/Foods/Details';
-import FoodProgress from './pages/Foods/Progress';
-import DrinkDetails from './pages/Drinks/Details';
-import DrinkProgress from './pages/Drinks/Progress';
+import FoodProgress from '../../pages/Foods/Progress';
+import FoodDetails from '../../pages/Foods/Details';
+import Foods from '../../pages/Foods';
 
 export default function App() {
   return (
@@ -34,7 +34,6 @@ export default function App() {
           <Route path="/done-recipes" component={DoneRecipes} />
           <Route path="/favorite-recipes" component={FavoriteRecipes} />
         </Switch>
-
       </BrowserRouter>
     </RecipesProvider>
   );
