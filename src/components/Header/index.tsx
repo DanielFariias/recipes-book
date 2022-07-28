@@ -7,7 +7,7 @@ import { SearchInput } from './SearchInput';
 
 interface HeaderProps {
   title: string
-  hasSearchInput: boolean
+  hasSearchInput?: boolean
 }
 
 export default function Header({ title, hasSearchInput }: HeaderProps) {
