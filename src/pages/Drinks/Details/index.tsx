@@ -1,21 +1,22 @@
 /* eslint-disable no-use-before-define */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { RecipeDetails } from '../../../components/RecipeDetails';
+import DrinkService from '../../../services/DrinkService';
+import FoodServices from '../../../services/FoodServices';
+import LocalStorageService from '../../../services/LocalStorageService';
+import filterIngredients from '../../../utils/filterIngredients';
 
-import { RecipeDetails } from '../../components/RecipeDetails';
-
-import DrinkService from '../../services/DrinkService';
-import FoodServices from '../../services/FoodServices';
-import LocalStorageService from '../../services/LocalStorageService';
-
-import filterIngredients from '../../utils/filterIngredients';
+interface IParams {
+  id: string
+}
 
 export default function DrinkDetails() {
-  const [drink, setDrink] = useState({});
+  const [drink, setDrink] = useState<any>({});
   const [isFavorite, setIsFavorite] = useState(false);
   const [recomendations, setRecomendations] = useState([]);
 
-  const { id: RecipeId } = useParams();
+  const { id: RecipeId } = useParams<IParams>();
 
   useEffect(() => {
     DrinkService.requestById(RecipeId)
@@ -69,13 +70,13 @@ export default function DrinkDetails() {
     const storage = LocalStorageService.get('doneRecipes');
 
     if (storage) {
-      return storage.find((recipe) => recipe.id === drink.idDrink);
+      return Boolean(storage.find((recipe) => recipe.id === drink.idDrink));
     }
     return false;
   }
 
   function isInProgressRecipe() {
-    const storage = LocalStorageService.get('inProgressRecipes');
+    const storage: any = LocalStorageService.get('inProgressRecipes');
 
     if (storage) {
       return storage.cocktails[drink.idDrink];
