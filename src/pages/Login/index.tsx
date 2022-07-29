@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import LocalStorageService from '../../services/LocalStorageService';
 import { isEmailValid } from '../../utils/isValidEmail';
+import * as C from './styles';
 
 const MIN_INPUT_PASSWORD = 6;
 
@@ -29,37 +30,41 @@ export default function Login() {
     history.push('/foods');
   }
   return (
-    <div>
-      <header>
+    <C.Container>
+      <C.Header>
         <h1>Recipes Book</h1>
-        <p>Bem vindo ao seu livro de receitas, faça o login com suas credenciais.</p>
-      </header>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email-input">
-          Email:
-          <input
-            id="email-input"
-            type="email"
-            value={inputEmail}
-            onChange={(e) => setInputEmail(e.target.value)}
-          />
-        </label>
-        <label htmlFor="password-input">
-          Senha:
-          <input
-            id="password-input"
-            type="password"
-            value={InputPassword}
-            onChange={(e) => setInputPassword(e.target.value)}
-          />
-        </label>
+        <p>
+          <span>Bem vindo ao seu livro de receitas</span>
+          <span>Faça o login com suas credenciais</span>
+        </p>
+        <div />
+      </C.Header>
+
+      <C.Form onSubmit={handleSubmit}>
+
+        <input
+          id="email-input"
+          type="email"
+          value={inputEmail}
+          placeholder="Digite seu e-mail"
+          onChange={(e) => setInputEmail(e.target.value)}
+        />
+
+        <input
+          id="password-input"
+          placeholder="Digite sua senha"
+          type="password"
+          value={InputPassword}
+          onChange={(e) => setInputPassword(e.target.value)}
+        />
+
         <button
           type="submit"
           disabled={!isValidForm()}
         >
-          Enter
+          Login
         </button>
-      </form>
-    </div>
+      </C.Form>
+    </C.Container>
   );
 }
