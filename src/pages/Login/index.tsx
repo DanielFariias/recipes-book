@@ -29,31 +29,37 @@ export default function Login() {
     history.push('/foods');
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="email-input">
-        Email:
-        <input
-          id="email-input"
-          type="email"
-          value={inputEmail}
-          onChange={(e) => setInputEmail(e.target.value)}
-        />
-      </label>
-      <label htmlFor="password-input">
-        Senha:
-        <input
-          id="password-input"
-          type="password"
-          value={InputPassword}
-          onChange={(e) => setInputPassword(e.target.value)}
-        />
-      </label>
-      <button
-        type="submit"
-        disabled={!isValidForm()}
-      >
-        Enter
-      </button>
-    </form>
+    <div>
+      <header>
+        <h1>Recipes Book</h1>
+        <p>Bem vindo ao seu livro de receitas, faça o login com suas credenciais.</p>
+      </header>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="email-input">
+          Email:
+          <input
+            id="email-input"
+            type="email"
+            value={inputEmail}
+            onChange={(e) => setInputEmail(e.target.value)}
+          />
+        </label>
+        <label htmlFor="password-input">
+          Senha:
+          <input
+            id="password-input"
+            type="password"
+            value={InputPassword}
+            onChange={(e) => setInputPassword(e.target.value)}
+          />
+        </label>
+        <button
+          type="submit"
+          disabled={!isValidForm()}
+        >
+          Enter
+        </button>
+      </form>
+    </div>
   );
 }

@@ -1,40 +1,26 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
+import { ThemeProvider } from 'styled-components';
 import { RecipesProvider } from '../../context/RecipesContext';
 
-import FavoriteRecipes from '../../pages/FavoriteRecipes';
-import DoneRecipes from '../../pages/DoneRecipes';
-import Profile from '../../pages/Profile';
-import Login from '../../pages/Login';
-
-import DrinkProgress from '../../pages/Drinks/Progress';
-import DrinkDetails from '../../pages/Drinks/Details';
-import Drinks from '../../pages/Drinks';
-
-import FoodProgress from '../../pages/Foods/Progress';
-import FoodDetails from '../../pages/Foods/Details';
-import Foods from '../../pages/Foods';
+import { Container } from './styles';
+import { defaultTheme } from '../../assets/styles/themes/default';
+import GlobalStyles from '../../assets/styles/global';
+import { Routes } from '../../Routes';
 
 export default function App() {
   return (
-    <RecipesProvider>
+    <ThemeProvider theme={defaultTheme}>
       <BrowserRouter>
-        <Switch>
-          <Route path="/" exact component={Login} />
 
-          <Route path="/foods" exact component={Foods} />
-          <Route path="/foods/:id" exact component={FoodDetails} />
-          <Route path="/foods/:id/in-progress" component={FoodProgress} />
+        <RecipesProvider>
+          <Container>
+            <Routes />
+          </Container>
+        </RecipesProvider>
+        <GlobalStyles />
 
-          <Route path="/drinks" exact component={Drinks} />
-          <Route path="/drinks/:id" exact component={DrinkDetails} />
-          <Route path="/drinks/:id/in-progress" component={DrinkProgress} />
-
-          <Route path="/profile" component={Profile} />
-          <Route path="/done-recipes" component={DoneRecipes} />
-          <Route path="/favorite-recipes" component={FavoriteRecipes} />
-        </Switch>
       </BrowserRouter>
-    </RecipesProvider>
+    </ThemeProvider>
   );
 }
