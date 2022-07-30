@@ -2,6 +2,7 @@ import { IRecipe } from '../../context/RecipesContext/RecipesTypes';
 import Footer from '../Footer';
 import Header from '../Header';
 import { ListRecipeCard } from '../ListRecipeCard';
+import * as C from './styles';
 
 type ICategory = any
 
@@ -19,7 +20,7 @@ export function RecipeContent({
     <div>
       <Header title={title} hasSearchInput />
 
-      <div>
+      <C.HeaderButtons>
         <button
           type="button"
           onClick={() => searchByCategory('all')}
@@ -37,7 +38,7 @@ export function RecipeContent({
           </button>
         ))
       }
-      </div>
+      </C.HeaderButtons>
 
       <ListRecipeCard recipes={recipes} />
 

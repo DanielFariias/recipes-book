@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { IRecipe } from '../../../context/RecipesContext/RecipesTypes';
+import { Container } from './styles';
 
 interface IRecipeCardProps {
   recipe: IRecipe
@@ -14,7 +15,7 @@ export function RecipeCard({ recipe }: IRecipeCardProps) {
   const recipeName = recipe.strDrink ?? recipe.strMeal;
 
   return (
-    <div>
+    <Container>
       <Link to={redirectUrl}>
         <img
           src={recipeImage}
@@ -22,6 +23,6 @@ export function RecipeCard({ recipe }: IRecipeCardProps) {
         />
         <span>{recipeName}</span>
       </Link>
-    </div>
+    </Container>
   );
 }
