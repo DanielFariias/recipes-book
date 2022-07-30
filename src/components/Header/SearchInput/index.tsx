@@ -1,3 +1,4 @@
+import { MagnifyingGlass } from 'phosphor-react';
 import { useState, useContext, ChangeEvent } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -5,6 +6,7 @@ import { RecipesContext } from '../../../context/RecipesContext';
 
 import DrinkService from '../../../services/DrinkService';
 import FoodServices from '../../../services/FoodServices';
+import * as C from './styles';
 
 const RADIO_TYPES = ['ingredient', 'name', 'first-letter'];
 
@@ -89,34 +91,39 @@ export function SearchInput() {
   }
 
   return (
-    <form onSubmit={HandleSearchFoods}>
-      <label htmlFor="search-input">
-        What do you want to search?
+    <C.Form onSubmit={HandleSearchFoods}>
+      <small>What do you want to search?</small>
+
+      <section>
         <input
           type="text"
           id="search-input"
-          placeholder="noodle"
+          placeholder="Noodle"
           onChange={handleSearchInput}
           value={searchInput}
         />
-      </label>
 
-      {RADIO_TYPES.map((radio) => (
-        <label key={radio} htmlFor={`${radio}-search-radio`}>
-          <span>{radio}</span>
-          <input
-            type="radio"
-            value={radio}
-            id={`${radio}-search-radio`}
-            onChange={handleRadioInput}
-            checked={typeInputRadio === radio}
-          />
-        </label>
-      ))}
+        <button type="submit">
+          <MagnifyingGlass size={24} color="#FB9400" weight="bold" />
+        </button>
+      </section>
 
-      <button type="submit">
-        Buscar
-      </button>
-    </form>
+      <small>Search by:</small>
+      <div>
+        {RADIO_TYPES.map((radio) => (
+          <label key={radio} htmlFor={`${radio}-search-radio`}>
+            <input
+              type="radio"
+              value={radio}
+              id={`${radio}-search-radio`}
+              onChange={handleRadioInput}
+              checked={typeInputRadio === radio}
+            />
+            <span>{radio}</span>
+          </label>
+        ))}
+      </div>
+
+    </C.Form>
   );
 }

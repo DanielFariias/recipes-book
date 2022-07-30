@@ -1,9 +1,9 @@
+import { MagnifyingGlass, User } from 'phosphor-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import profileIcon from '../../images/profileIcon.svg';
-import searchIcon from '../../images/searchIcon.svg';
 import { SearchInput } from './SearchInput';
+import * as C from './styles';
 
 interface HeaderProps {
   title: string
@@ -18,27 +18,26 @@ export default function Header({ title, hasSearchInput }: HeaderProps) {
   }
 
   return (
-    <header>
-      <Link to="/profile">
-        <img src={profileIcon} alt="Person Icon minimalist" />
-      </Link>
+    <C.Container>
+      <C.HeaderMenu>
+        <Link to="/profile">
+          <User size={32} color="#FB9400" weight="bold" />
+        </Link>
 
-      <h1>{title}</h1>
+        <h1>{title}</h1>
 
-      <button
-        type="button"
-        onClick={handleToggleSearch}
-      >
-        <img
-          src={searchIcon}
-          alt="Magnifying glass Icon blacn and withe minimalist"
-        />
-      </button>
+        <button
+          type="button"
+          onClick={handleToggleSearch}
+        >
+          <MagnifyingGlass size={32} color="#FB9400" weight="bold" />
+        </button>
+      </C.HeaderMenu>
 
       {(hasSearchInput && ToggleSearch) && (
         <SearchInput />
       )}
 
-    </header>
+    </C.Container>
   );
 }
