@@ -1,26 +1,19 @@
+import { Brandy, ForkKnife } from 'phosphor-react';
 import { Link } from 'react-router-dom';
 
 import drinkIcon from '../../images/drinkIcon.svg';
 import mealIcon from '../../images/mealIcon.svg';
+import { Container } from './styles';
 
 export default function Footer() {
   return (
-    <footer
-      style={{
-        position: 'fixed',
-        width: '100%',
-        maxWidth: 428,
-        backgroundColor: '#ff0',
-        bottom: 0,
-        left: 0,
-      }}
-    >
-      <Link to="/drinks">
-        <img src={drinkIcon} alt="" />
-      </Link>
+    <Container>
       <Link to="/foods">
-        <img src={mealIcon} alt="" />
+        <ForkKnife size={40} color="#fff" />
       </Link>
-    </footer>
+      <Link to="/drinks">
+        <Brandy size={40} color="#fff" />
+      </Link>
+    </Container>
   );
 }
