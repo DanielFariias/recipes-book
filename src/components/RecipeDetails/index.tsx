@@ -1,17 +1,11 @@
 import copy from 'clipboard-copy';
 
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { ArrowUDownLeft, HeartStraight, ShareNetwork } from 'phosphor-react';
 import { IRecipe } from '../../context/RecipesContext/RecipesTypes';
 
-import whiteHeart from '../../images/whiteHeartIcon.svg';
-import blackHeart from '../../images/blackHeartIcon.svg';
-import shareIcon from '../../images/shareIcon.svg';
-
-const styles = {
-  width: '100%',
-  maxWidth: 360,
-};
+import * as C from './styles';
 
 interface IRecipeDetailsProps {
   recipe: IRecipe
@@ -49,109 +43,127 @@ export function RecipeDetails({
     ? `/foods/${recipe.idMeal}/in-progress`
     : `/drinks/${recipe.idDrink}/in-progress`;
 
+  const UrlToCopy = recipe.idMeal
+    ? `http://localhost:3000/foods/${recipe.idMeal}`
+    : `http://localhost:3000/drinks/${recipe.idDrink}`;
+
+  const returnUrl = recipe.idMeal
+    ? '/foods/'
+    : '/drinks/';
+
+  function handleClickShare() {
+    copy(UrlToCopy);
+    setIsLinkCopied(true);
+  }
+
+  function handleClickFavorite() {
+    saveRecipeAtLocalStorage();
+    isFavoritefunction();
+  }
+
   return (
-    <div style={styles}>
-      <img
-        src={image}
-        alt=""
+    <C.Container>
+      <C.Header>
+        <div className="header-title">
+          <Link to={returnUrl}>
+            <ArrowUDownLeft
+              size={25}
+              color="#fff"
+              weight="bold"
+            />
+          </Link>
 
-      />
-      <h1>{name}</h1>
+          <h1>Food</h1>
+        </div>
 
-      <button
-        type="button"
-        onClick={() => {
-          saveRecipeAtLocalStorage();
-          isFavoritefunction();
-        }}
-      >
-        <img
-          src={isFavorite ? blackHeart : whiteHeart}
-          alt=""
-          data-testid="favorite-btn"
-        />
+        <div className="header-info">
+          <img src={image} alt="" />
+        </div>
 
-      </button>
+        <div className="header-menu">
+          <button type="button" onClick={handleClickShare}>
+            <ShareNetwork
+              size={25}
+              color="#fff"
+              weight="bold"
+            />
+          </button>
 
-      <button
-        data-testid="share-btn"
-        type="button"
-        onClick={() => {
-          copy(`http://localhost:3000/foods/${recipe.idMeal}`);
-          setIsLinkCopied(true);
-        }}
-      >
-        <img src={shareIcon} alt="" />
-      </button>
-      {isLinkCopied && <p>Link copied!</p>}
+          <h1>{name}</h1>
 
-      <br />
-      <br />
-      <span data-testid="recipe-category">{recipe.strCategory}</span>
+          <button type="button" onClick={handleClickFavorite}>
+            <HeartStraight
+              size={25}
+              color="#fff"
+              weight={isFavorite ? 'fill' : 'bold'}
+            />
+          </button>
+        </div>
+        {isLinkCopied && <p>Link copied!</p>}
+      </C.Header>
 
-      <div>
+      <C.IngredientsCard>
+        <h2>Ingredients</h2>
         {ingredients.map((ingredient, index) => (
           <p key={ingredient[0]}>
             {`${ingredient[1]} - ${measure[index] && measure[index][1]}`}
           </p>
         ))}
-      </div>
+      </C.IngredientsCard>
 
-      <p data-testid="instructions">
-        {recipe.strInstructions}
-      </p>
+      <C.InstructionsCard>
+        <h2>Instructions</h2>
+
+        <p>
+          {recipe.strInstructions}
+        </p>
+      </C.InstructionsCard>
 
       {generateYoutubeLink && (
-        <iframe
-          data-testid="video"
-          src={generateYoutubeLink(recipe.strYoutube) as string}
-          width="300"
-          height="auto"
-          title={`${id} preparation`}
-        />
+        <C.VideoCard>
+          <h2>Tutorial</h2>
+          <iframe
+            src={generateYoutubeLink(recipe.strYoutube) as string}
+            width="300"
+            height="auto"
+            title={`${id} preparation`}
+          />
+        </C.VideoCard>
       )}
 
-      <section
-        className="recommendations-container"
-        style={{
-          width: 360,
-          overflow: 'hidden',
-          overflowX: 'scroll',
-          display: 'flex',
-          gap: 20,
-        }}
-      >
-        {recomendations.map((item) => {
-          const recomendationId = item.idMeal ?? item.idDrink;
-          const recomendationImage = item.strMealThumb ?? item.strDrinkThumb;
-          const recomendationName = item.strMeal ?? item.strDrink;
-          return (
-            <div
-              key={recomendationId}
-            >
-              <img src={recomendationImage} alt="" width={200} />
-              <p>{recomendationName}</p>
-            </div>
-          );
-        })}
-      </section>
+      <C.RecommendationsCard>
+        <h2>Recommendations</h2>
+
+        <div>
+          {recomendations.map((item) => {
+            const recomendationId = item.idMeal ?? item.idDrink;
+            const recomendationImage = item.strMealThumb ?? item.strDrinkThumb;
+            const recipeUrl = item.idMeal
+              ? `/foods/${recomendationId}`
+              : `/drinks/${recomendationId}`;
+            return (
+              <Link key={recomendationId} to={recipeUrl}>
+                <img
+                  src={recomendationImage}
+                  alt=""
+                  width={200}
+                />
+              </Link>
+            );
+          })}
+        </div>
+
+      </C.RecommendationsCard>
 
       {!isDoneRecipe() && (
-        <button
+        <C.FinishButton
           type="button"
           onClick={() => history.push(doneRecipeReciderect)}
-          style={{
-            position: 'fixed',
-            bottom: 0,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            fontSize: 24,
-          }}
         >
           {!isInProgressRecipe() ? 'Start Recipe' : 'Continue Recipe'}
-        </button>
+        </C.FinishButton>
       )}
 
-    </div>
+    </C.Container>
   );
 }
