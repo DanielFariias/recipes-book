@@ -1,16 +1,14 @@
 import copy from 'clipboard-copy';
 import { useState } from 'react';
+import { ArrowUDownLeft, HeartStraight, ShareNetwork } from 'phosphor-react';
+import { Link } from 'react-router-dom';
 import { IRecipe } from '../../context/RecipesContext/RecipesTypes';
 
 import whiteHeart from '../../images/whiteHeartIcon.svg';
 import blackHeart from '../../images/blackHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 import filterIngredients from '../../utils/filterIngredients';
-
-const styles = {
-  width: '100%',
-  maxWidth: 360,
-};
+import * as C from './styles';
 
 interface IRecipeProgressProps {
   recipe: IRecipe
@@ -41,43 +39,67 @@ export default function RecipeProgress({
   const image = recipe.strMealThumb ?? recipe.strDrinkThumb;
   const name = recipe.strMeal ?? recipe.strDrink;
 
-  const copyUrl = recipe.idMeal
+  const UrlToCopy = recipe.idMeal
     ? `http://localhost:3000/foods/${recipe.idMeal}`
     : `http://localhost:3000/drinks/${recipe.idDrink}`;
 
+  const returnUrl = recipe.idMeal
+    ? `/foods/${recipe.idMeal}`
+    : `/drinks/${recipe.idDrink}`;
+
+  function handleClickShare() {
+    copy(UrlToCopy);
+    setIsLinkCopied(true);
+  }
+
+  function handleClickFavorite() {
+    saveFoodAtLocalStorage();
+    isFavoritefunction();
+  }
+
   return (
-    <div style={styles}>
-      <img src={image} alt="" />
-      <h1>{name}</h1>
+    <C.Container>
+      <C.Header>
+        <div className="header-title">
+          <Link to={returnUrl}>
+            <ArrowUDownLeft
+              size={25}
+              color="#fff"
+              weight="bold"
+            />
+          </Link>
 
-      <button
-        type="button"
-        onClick={() => {
-          saveFoodAtLocalStorage();
-          isFavoritefunction();
-        }}
-      >
-        <img
-          src={isFavorite ? blackHeart : whiteHeart}
-          alt=""
-        />
+          <h1>Food</h1>
+        </div>
 
-      </button>
+        <div className="header-info">
+          <img src={image} alt="" />
+        </div>
 
-      <button
-        type="button"
-        onClick={() => {
-          copy(copyUrl);
-          setIsLinkCopied(true);
-        }}
-      >
-        <img src={shareIcon} alt="" />
-      </button>
-      { isLinkCopied && <p>Link copied!</p>}
+        <div className="header-menu">
+          <button type="button" onClick={handleClickShare}>
+            <ShareNetwork
+              size={25}
+              color="#fff"
+              weight="bold"
+            />
+          </button>
 
-      <span>{recipe.strCategory}</span>
+          <h1>{name}</h1>
 
-      <div>
+          <button type="button" onClick={handleClickFavorite}>
+            <HeartStraight
+              size={25}
+              color="#fff"
+              weight={isFavorite ? 'fill' : 'bold'}
+            />
+          </button>
+        </div>
+        {isLinkCopied && <p>Link copied!</p>}
+      </C.Header>
+
+      <C.IngredientsCard>
+        <h2>Ingredients</h2>
         {measure && ingredients?.map((ingredient: any, index: any) => (
           <p
             key={ingredient[0]}
@@ -95,17 +117,20 @@ export default function RecipeProgress({
             </label>
           </p>
         ))}
-      </div>
-      <p>
-        {recipe.strInstructions}
-      </p>
-      <button
+      </C.IngredientsCard>
+
+      <C.InstructionsCard>
+        <h2>Ingredients</h2>
+        <p>{recipe.strInstructions}</p>
+      </C.InstructionsCard>
+
+      <C.FinishButton
         type="button"
         disabled={buttonDisabled}
         onClick={finishRecipe}
       >
         Finish recipe
-      </button>
-    </div>
+      </C.FinishButton>
+    </C.Container>
   );
 }
