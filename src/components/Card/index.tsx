@@ -1,15 +1,17 @@
-import { Link } from 'react-router-dom';
-import copy from 'clipboard-copy';
-
 import { useState } from 'react';
+import copy from 'clipboard-copy';
+import { Link } from 'react-router-dom';
+import ptBR from 'date-fns/locale/pt-BR';
+import { formatDistanceToNow } from 'date-fns';
+import { HeartStraight, ShareNetwork } from 'phosphor-react';
+
 import { IRecipe } from '../../context/RecipesContext/RecipesTypes';
 
-import shareIcon from '../../images/shareIcon.svg';
-import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import * as C from './styles';
 
 interface ICardProps {
   recipe: IRecipe
-  removeFavorite?: (recipe:any) => void
+  removeFavorite?: (recipe: any) => void
 }
 
 export default function Card({ recipe, removeFavorite }: ICardProps) {
@@ -29,40 +31,56 @@ export default function Card({ recipe, removeFavorite }: ICardProps) {
   }
 
   return (
-    <div>
-
+    <C.Container>
       <Link to={redirectUrl}>
         <img src={recipe.image} alt="" />
-        <p>
-          {recipe.name}
-        </p>
       </Link>
 
-      {recipe.alcoholicOrNot && (
-        <p>{recipe.alcoholicOrNot}</p>
-      )}
+      <C.RecipeInfo>
+        <div className="recipe-info">
+          <h2>{recipe.name}</h2>
 
-      {recipe.nationality && (
-        <p>{`${recipe.nationality}-${recipe.category}`}</p>
-      )}
+          <div>
+            {recipe.alcoholicOrNot && (
+            <p>{recipe.alcoholicOrNot}</p>
+            )}
 
-      <p>
-        {recipe.doneDate}
-      </p>
-      {removeFavorite && (
-      <button type="button" onClick={() => removeFavorite(recipe)}>
-        <img src={blackHeartIcon} alt="" />
-      </button>
-      )}
-      <button type="button" onClick={handleClickShare}>
-        <img src={shareIcon} alt="" />
-      </button>
-      {linkCopied && (<p>Link copied!</p>)}
+            {recipe.nationality && (
+            <p>{`${recipe.nationality}-${recipe.category}`}</p>
+            )}
 
-      {!!recipe?.tags?.length
-        && recipe.tags.map((tag: string) => (
-          <p key={tag}>{tag}</p>
-        ))}
-    </div>
+            <p>
+              {recipe.doneDate
+              && formatDistanceToNow(new Date(recipe.doneDate), {
+                addSuffix: true,
+                locale: ptBR,
+              })}
+            </p>
+          </div>
+        </div>
+
+        <div className="options-menu">
+          {removeFavorite && (
+          <button type="button" onClick={() => removeFavorite(recipe)}>
+            <HeartStraight
+              size={25}
+              color="#fff"
+              weight="fill"
+            />
+          </button>
+          )}
+
+          <button type="button" onClick={handleClickShare}>
+            <ShareNetwork
+              size={25}
+              color="#fff"
+              weight="bold"
+            />
+          </button>
+          {linkCopied && (<p>Link copied!</p>)}
+        </div>
+
+      </C.RecipeInfo>
+    </C.Container>
   );
 }

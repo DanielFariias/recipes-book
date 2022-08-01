@@ -18,7 +18,7 @@ export const HeaderMenu = styled.div`
     font-family: serif;
     font-size: 38px;
     color: ${({ theme }) => theme['gray-500']};
-
+    text-align: center;
   }
 
   button {

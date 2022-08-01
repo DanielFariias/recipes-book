@@ -5,6 +5,7 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 
 import LocalStorageService from '../../services/LocalStorageService';
+import * as C from './styles';
 
 export default function Profile() {
   const [user] = useState<any>(() => LocalStorageService.get('user') ?? '');
@@ -16,12 +17,15 @@ export default function Profile() {
     history.push('/');
   }
   return (
-    <div>
+    <C.Container>
       <Header title="Profile" />
 
-      <p>{user?.email}</p>
+      <C.UserCard>
+        <h2>User Email</h2>
+        <p>{user?.email ?? 'email@example.com'}</p>
+      </C.UserCard>
 
-      <div>
+      <C.OptionsMenu>
         <button onClick={() => history.push('/done-recipes')} type="button">
           Done Recipes
         </button>
@@ -33,9 +37,9 @@ export default function Profile() {
         <button onClick={handleLogout} type="button">
           Logout
         </button>
-      </div>
+      </C.OptionsMenu>
 
       <Footer />
-    </div>
+    </C.Container>
   );
 }

@@ -89,7 +89,7 @@ export function RecipeDetails({
             />
           </button>
 
-          <h1>{name}</h1>
+          <h2>{name}</h2>
 
           <button type="button" onClick={handleClickFavorite}>
             <HeartStraight

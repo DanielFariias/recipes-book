@@ -24,4 +24,6 @@ export const Container = styled.div`
       border-radius: 15px;
     }
   }
+
+
 `;

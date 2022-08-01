@@ -41,9 +41,10 @@ export const Header = styled.header`
     justify-content: space-between;
     padding: 0 10px;
 
-    h1 {
+    h2 {
       color: #FB9400;
       font-size: 30px;
+      text-align: center;
     }
 
     > button {

@@ -3,6 +3,7 @@ import Card from '../../components/Card';
 
 import Header from '../../components/Header';
 import LocalStorageService from '../../services/LocalStorageService';
+import * as C from './styles';
 
 const buttons = ['all', 'food', 'drink'];
 
@@ -11,7 +12,7 @@ export default function DoneRecipes() {
   const [filterType, setFilterType] = useState('all');
 
   useEffect(() => {
-    const doneRecipes: any = LocalStorageService.get('doneRecipes');
+    const doneRecipes = LocalStorageService.get('doneRecipes') || [];
     setRecipes(doneRecipes);
   }, []);
 
@@ -23,25 +24,28 @@ export default function DoneRecipes() {
 
   const filteredRecipes = filterRecipe();
   return (
-    <div>
+    <C.Container>
       <Header title="Done Recipes" />
 
-      <div>
+      <C.OptionsMenu>
         {buttons.map((button) => (
           <button
             key={button}
             type="button"
             onClick={() => setFilterType(button)}
+            disabled={!recipes.length}
           >
             {button}
           </button>
         ))}
+      </C.OptionsMenu>
+
+      <div>
+        {recipes && filteredRecipes.map((recipe: any) => (
+          <Card key={recipe.id} recipe={recipe} />
+        ))}
       </div>
 
-      {recipes && filteredRecipes.map((recipe: any) => (
-        <Card key={recipe.id} recipe={recipe} />
-      ))}
-
-    </div>
+    </C.Container>
   );
 }
