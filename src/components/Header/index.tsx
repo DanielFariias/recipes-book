@@ -29,6 +29,7 @@ export default function Header({ title, hasSearchInput }: HeaderProps) {
         <button
           type="button"
           onClick={handleToggleSearch}
+          disabled={!hasSearchInput}
         >
           <MagnifyingGlass size={32} color="#FB9400" weight="bold" />
         </button>

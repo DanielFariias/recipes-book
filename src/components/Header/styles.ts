@@ -24,5 +24,10 @@ export const HeaderMenu = styled.div`
   button {
     border: none;
     background-color: transparent;
+
+    :disabled {
+      opacity: 0.2;
+      cursor: not-allowed;
+    }
   }
 `;
